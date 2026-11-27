@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Меню для телефона</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Century Gothic', Helvetica, sans-serif;
+      background: url('images/fon3.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
+      padding: 1rem;
+      min-height: 100vh;
+      /* Для кращого контрасту тексту на фоні */
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    header h1 {
+      font-family: 'Century Gothic', Helvetica, sans-serif;
+      font-size: 2.6rem;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.6rem 1.5rem;
+      border-radius: 18px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+      text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+      letter-spacing: 1px;
+      display: inline-block;
+      animation: slideIn 1s ease-out;
+      text-align: center;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: rgba(255 255 255 / 0.9);
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.6s ease forwards;
+      transform: translateY(30px);
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    /* Анімація при наведенні/дотику */
+    .card:hover, .card:focus {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      outline: none;
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-bottom: 1px solid #ddd;
+      /* Ледве помітний ефект */
+      transition: filter 0.3s ease;
+    }
+
+    .card img:hover {
+      filter: brightness(1.05);
+    }
+
+    .card-content {
+      padding: 1rem;
+    }
+
+    .card-content h2 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: #222;
+      letter-spacing: 0.5px;
+    }
+
+    .card-content p {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #444;
+      text-shadow: 0 0 3px rgba(255,255,255,0.8);
+    }
+
+    @keyframes fadeInUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Для великих екранів */
+    @media (min-width: 600px) {
+      .menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .card {
+        width: 300px;
+      }
+    }
+
+    /* Новорічне оформлення */
+    header {
+      position: relative;
+      padding-top: 2.2rem;
+    }
+
+    header h1 {
+      position: relative;
+    }
+
+
+    /* Акуратна шапочка біля назви */
+    .title-hat {
+      position: absolute;
+      width: 39px;
+      height: 32px;
+      top: -23px;
+      left: 8px;
+      transform: rotate(-12deg);
+      z-index: 2;
+      overflow: visible;
+      filter: drop-shadow(0 2px 2px rgba(0,0,0,.2));
+    }
+
+    /* Гірлянда: окремий SVG зверху сторінки */
+    .christmas-garland {
+      position: fixed;
+      z-index: 50;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 76px;
+      pointer-events: none;
+      overflow: visible;
+    }
+
+    .christmas-garland svg {
+      display: block;
+      width: 100%;
+      height: 76px;
+      overflow: visible;
+    }
+
+    .garland-wire {
+      fill: none;
+      stroke: #263b2b;
+      stroke-width: 3;
+      stroke-linecap: round;
+    }
+
+    .garland-bulb {
+      stroke: rgba(255,255,255,.75);
+      stroke-width: 1.2;
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: bulbTwinkle 1.8s ease-in-out infinite alternate;
+    }
+
+    .garland-bulb:nth-of-type(2n) { animation-delay: .45s; }
+    .garland-bulb:nth-of-type(3n) { animation-delay: .9s; }
+
+    @keyframes bulbTwinkle {
+      from { opacity: .68; filter: drop-shadow(0 0 2px currentColor); }
+      to { opacity: 1; filter: drop-shadow(0 0 9px currentColor); }
+    }
+
+    /* Падающий снег */
+    .snowflake {
+      position: fixed;
+      top: -12px;
+      z-index: 30;
+      pointer-events: none;
+      user-select: none;
+      color: #fff;
+      text-shadow: 0 0 7px rgba(255,255,255,.9);
+      animation-name: snowfall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes snowfall {
+      0% { transform: translate3d(0, -10px, 0) rotate(0deg); }
+      100% { transform: translate3d(35px, 105vh, 0) rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .snowflake { display: none; }
+      body::before { animation: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="christmas-garland" aria-hidden="true">
+    <svg viewBox="0 0 1200 76" preserveAspectRatio="none">
+      <path class="garland-wire" d="M0 4 Q150 66 300 27 T600 27 T900 27 T1200 4"/>
+      <g>
+        <path d="M95 29 v8 M245 39 v8 M395 29 v8 M545 29 v8 M695 29 v8 M845 29 v8 M995 39 v8 M1145 18 v8"
+              stroke="#263b2b" stroke-width="2" fill="none"/>
+        <circle class="garland-bulb" cx="95" cy="43" r="7" fill="#ffd166" style="color:#ffd166"/>
+        <circle class="garland-bulb" cx="245" cy="53" r="7" fill="#ff6b6b" style="color:#ff6b6b"/>
+        <circle class="garland-bulb" cx="395" cy="43" r="7" fill="#a8e6a1" style="color:#a8e6a1"/>
+        <circle class="garland-bulb" cx="545" cy="43" r="7" fill="#ffd166" style="color:#ffd166"/>
+        <circle class="garland-bulb" cx="695" cy="43" r="7" fill="#ff6b6b" style="color:#ff6b6b"/>
+        <circle class="garland-bulb" cx="845" cy="43" r="7" fill="#a8e6a1" style="color:#a8e6a1"/>
+        <circle class="garland-bulb" cx="995" cy="53" r="7" fill="#ffd166" style="color:#ffd166"/>
+        <circle class="garland-bulb" cx="1145" cy="32" r="7" fill="#ff6b6b" style="color:#ff6b6b"/>
+      </g>
+    </svg>
+  </div>
+
+  <header>
+    <h1><svg class="title-hat" viewBox="0 0 52 42" aria-hidden="true">
+        <path d="M7 29 C13 13 27 5 39 4 C36 15 41 23 47 29 Z" fill="#c62828"/>
+        <path d="M7 29 C17 25 34 25 47 29 L46 36 C34 32 17 33 6 36 Z" fill="#fff"/>
+        <circle cx="40" cy="5" r="5" fill="#fff"/>
+      </svg>Кав'ярня 31/1</h1>
+  </header>
+
+  <div class="menu">
+    <div class="card" tabindex="0">
+      <img src="images/pirog.jpg" alt="Пиріг з овочами" loading="lazy" />
+      <div class="card-content">
+        <h2>ПИРІГ З ОВОЧАМИ</h2>
+        <p>Склад: Тісто листкове дріжджове, яйця, борошно, масло вершкове, мікс овочів, вершки, сіль, сир моцарела, сир гауда.<br><b>Ціна: 235 грн<br>Маса нетто: 280 г</b></p>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0">
+      <img src="images/pirog_kurka.jpg" alt="Пиріг курка, гриби та сливи" loading="lazy" />
+      <div class="card-content">
+        <h2>ПИРІГ КУРКА, ГРИБИ ТА СЛИВИ</h2>
+        <p>Склад: стегно-гриль куряче, мікс грибів, томлена цибуля, чорнослив в'ялений, грибний хумус, мікс сирів, кракелін сирний, спеціх, тісто хрумке.<br><b>Ціна: 235 грн<br>Маса нетто: 190 г</b></p>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0">
+      <img src="images/pure.jpg" alt="Соковита котлета по-полтавськи" loading="lazy" />
+      <div class="card-content">
+        <h2>СОКОВИТА КОТЛЕТА ПО-ПОЛТАВСЬКИ З ВЕРШКОВОЮ ТОВЧАНКОЮ</h2>
+        <p>Склад: філе куряче, сіль, перець, яйця курячі, масло вершкове, кріп, борошно, сухарі Панко, картопля, молоко, вершки.<br><b>Ціна: 235 грн<br>Маса нетто: 280 г</b></p>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0">
+      <img src="images/tefteli.jpg" alt="Січеники з картоплею по-домашньому" loading="lazy" />
+      <div class="card-content">
+        <h2>СІЧЕНИКИ З КАРТОПЛЕЮ ПО-ДОМАШНЬОМУ</h2>
+        <p>Склад: фарш асорті (свинина, яловичина, філе куряче, сало), цибуля ріпчаста, батон, молоко, яйця, сіль, перець, борошно пшеничне, олія рослинна, картопля рожева, буряк червоний, часник мелений, сік лимону.<br><b>Ціна: 235 грн<br>Маса нетто: 300 г</b></p>
+      </div>
+    </div>
+
+    <div class="card" tabindex="0">
+      <img src="images/sirniki.jpg" alt="Сирники" loading="lazy" />
+      <div class="card-content">
+        <h2>Сирники</h2>
+        <p>Склад: сир кисломолочний, борошно пшеничне, цукор білий, яйця курячі, цукор ванільний, олія соняшникова, грецький горіх, ягоди сезонні.<br><b>Ціна: 235 грн<br>Маса нетто: 240 г</b></p>
+      </div>
+    </div>
+  </div> <!-- Тільки один закриваючий тег для .menu -->
+
+  <script>
+    // Анімація появи з невеликим затримками
+    document.querySelectorAll('.card').forEach((card, i) => {
+      card.style.animationDelay = `${i * 0.2}s`;
+    });
+
+    // Легкий новорічний снігопад
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const snowSymbols = ['❄', '❅', '✦'];
+      for (let i = 0; i < 28; i++) {
+        const flake = document.createElement('span');
+        flake.className = 'snowflake';
+        flake.textContent = snowSymbols[Math.floor(Math.random() * snowSymbols.length)];
+        flake.style.left = Math.random() * 100 + 'vw';
+        flake.style.opacity = (0.35 + Math.random() * 0.55).toFixed(2);
+        flake.style.fontSize = (9 + Math.random() * 12) + 'px';
+        flake.style.animationDuration = (9 + Math.random() * 13) + 's';
+        flake.style.animationDelay = (-Math.random() * 20) + 's';
+        document.body.appendChild(flake);
+      }
+    }
+
+  </script>
+</body>
+</html>
